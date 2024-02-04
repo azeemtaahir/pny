@@ -1,0 +1,206 @@
+/** Shopify CDN: Minification failed
+
+Line 22:4 Transforming const to the configured target environment ("es5") is not supported yet
+Line 42:28 Transforming default arguments to the configured target environment ("es5") is not supported yet
+Line 71:4 Transforming const to the configured target environment ("es5") is not supported yet
+Line 117:0 Transforming let to the configured target environment ("es5") is not supported yet
+Line 198:4 Transforming const to the configured target environment ("es5") is not supported yet
+Line 199:4 Transforming const to the configured target environment ("es5") is not supported yet
+
+**/
+<!-- ============================================================================= -->
+<!-- Ella Custom JS - Customize The Style For Layout -->
+<!-- ============================================================================= -->
+
+<!-- ============================================================================= -->
+<!-- IMPORTANT DISCLAIMER -->
+<!-- Please use only JS to style the layout. -->
+<!-- ============================================================================= -->
+$(document).on('click', '.select-sizes-sec label', function() {
+    $('.select-sizes-sec label').removeClass('selected-size');
+    $(this).addClass('selected-size');
+    const __sizeVal = $(this).text();
+    $('#select-size-option').val(__sizeVal);
+});
+
+$('.product-form__input span[data-header-option]').text('');
+
+ $('#add-to-cart-custom').click(function(e) {
+  e.preventDefault();
+  
+  if ($('#select-size-option').length && $('#select-size-option').val() === '') {
+    alert('Please Select Size');
+  } else if ( $('.testselects')[0] && $('.testselects').text().trim() === '') {
+    alert('Please Select Color');
+  } else {
+    $('#product-add-to-cart').click();
+  }
+  // Additional code here, if needed
+});
+
+
+function customAddToCart(ref=''){
+  if(ref == 'passed'){
+    if( $('#select-size-option')[0] && $('#select-size-option').val() == ''){
+     
+     alert('Please Select Size');
+    } else if ( $('.testselects')[0] && $('.testselects').text().trim() === '') {
+    alert('Please Select Color');
+    } else{
+  
+      $('#product-add-to-cart').click();
+      setTimeout(function() {
+        window.location.href = '/checkout';
+      }, 1000);
+       
+    }
+  }
+}
+
+
+// BUY NOW BUTTON
+$('.buy-now-button').click(function(){
+    // $('#add-to-cart-custom').click();
+    customAddToCart('passed');
+
+});
+
+
+// COLOR OTOPTION CHOOSE
+$('.choose-color-option').click(function(){
+    const __value = $(this).attr('data-color');
+    $('.testselects').text(__value);
+     
+});
+
+
+
+$('.size-chart').click(function(e){
+    $('.size-guide-main').addClass('showsize');
+     if(!e.target.closest('.size-guide-inner')){
+                 $(this).removeClass('showsize');
+                 
+
+    }
+});
+
+$('.color-guide').click(function(e){
+    $('.color-guide-main').addClass('showsize');
+  
+    if(!e.target.closest('.size-guide-inner')){
+                 $(this).removeClass('showsize');
+                 
+
+    }
+  
+});
+
+$('.color-guide-main').click(function(e){
+  
+    if(!e.target.closest('.main-img-guide')){
+                 $(this).removeClass('showsize');
+    }
+  
+});
+
+$('.size-guide-main').click(function(e){
+    if (!$(e.target).closest('.main-img-guide, .size-guide-inner h6').length) {
+        $(this).removeClass('showsize');
+    }
+});
+  
+$('.close-guide').click(function(){
+    $('.size-guide-main').removeClass('showsize');
+    $('.color-guide-main').removeClass('showsize');
+});
+
+let widthofimg = $('.adult-size-chart img').width();
+//$('.size-guide-inner h6').css({'width': widthofimg});
+
+$('.adult-size-chart, .kids-size-chart').click(function(){
+    $(this).find('img').fadeToggle();
+});
+
+
+// MENUS
+$('.menu-plus').click(function() {
+    
+    var _bb = $(this).parents('.cs-main-menu');
+    var _dd = $(this).parents('.cs-outer-menu');
+    $(_bb).next('.cs-drop-down-menu').toggleClass('cs-show-menu');
+    $(_bb).toggleClass('cs-outer-menu-show');
+    $(this).toggleClass('menu-minus');
+    $(this).toggleClass('menu-plus');
+  });
+
+$('.custom-navigations').click(function(e){
+  
+    if(!e.target.closest('#cs-main-menu')){
+                 $(this).removeClass('cs-main-menu-show');
+    }
+  
+});
+
+$('.header-mobile--icon button').click(function(event){
+  event.preventDefault();
+  $('.custom-navigations').addClass('cs-main-menu-show');
+});
+
+
+ $(window).scroll(function() {
+   if( $('.collection-filters__item')[0] ){
+        // Get the scroll position
+        var scrollPosition = $(this).scrollTop();
+
+        // Get the position of the target div
+        var targetDivPosition = $('#shopify-section-template--16343781015730__product-grid').offset().top;
+
+        // Check if the scroll position is greater than or equal to the target div position
+        if (scrollPosition >= targetDivPosition) {
+          // Add a class to the target div
+          $('.custom-scrollbar.scroll-trigger').addClass('highlights');
+          $('.toolbar').addClass('highlights-tool');
+          $('.toolbar').addClass('show-sticky');
+        } else {
+          // Remove the class if the scroll position is less than the target div position
+          $('.custom-scrollbar.scroll-trigger').removeClass('highlights');
+           $('.toolbar').removeClass('highlights-tool');
+           $('.toolbar').removeClass('show-sticky');
+        }
+      }
+      });
+
+var container = $('.sizes-options-fields');
+    var items = container.find('label');
+
+    items.sort(function(a, b) {
+      return $(a).attr('order') - $(b).attr('order');
+    });
+
+    container.empty().append(items);
+
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   var currentPath = window.location.pathname;
+
+//   // Redirect if the path doesn't end with a trailing slash
+//   if (currentPath.substr(-1) !== '/') {
+//     var redirectUrl = currentPath + '/';
+    
+//     // Add a 301 (permanent) redirect header
+//     window.location.replace(redirectUrl);
+//   }
+// });
+
+function handleClick(event) {
+    event.preventDefault();
+    const parentAnchor = event.currentTarget.parentElement.closest('a');
+    const hrefValue = parentAnchor ? parentAnchor.getAttribute('href') : null;
+    if (hrefValue) {
+        window.location.href = hrefValue;
+    }
+    // Add any additional JavaScript logic you need here
+    return false;
+}
+
